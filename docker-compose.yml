@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+    test_php:
+        build: ./_api
+        container_name: test_php
+        volumes:
+            - ./_api:/var/www
+        tty: true
+        ports:
+            - "8080:80"
+        networks:
+            - test_network
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8081:8080
+        networks:
+            - test_network
+    test_db:
+        image: mysql:5.6
+        build: _mysql
+        container_name: test_db
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: 12345
+        networks:
+            - test_network
+#    test-postgres:
+#        image: postgres:11.3
+#        container_name: test_network
+#        env_file: .env
+#        ports:
+#            - "5477:5432"
+#        logging:
+#            options:
+#                max-size: 10m
+#                max-file: "3"
+#        networks:
+#            - test_network
+#    test-rabbit:
+#        image: rabbitmq:3-management
+#        hostname: rabbit
+#        container_name: rabbit
+#        ports:
+#            - "15672:15672"
+#            - "5672:5672"
+#        env_file: .env
+#        networks:
+#            - test_network
+
+networks:
+    test_network:
+        name: test_network
