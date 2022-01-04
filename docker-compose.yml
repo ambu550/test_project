@@ -7,7 +7,7 @@ services:
         ports:
             - "8080:80"
         volumes:
-            - ./code:/code
+            - ./api:/api
             - .nginx/site.conf:/etc/nginx/conf.d/default.conf
         links:
             - php
@@ -15,7 +15,7 @@ services:
         build: .
         container_name: php
         volumes:
-            - ./code:/code
+            - ./api:/api
     adminer:
         image: adminer
         restart: always
