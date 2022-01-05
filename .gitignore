@@ -1,3 +1,6 @@
 .idea/
-.env
+
+
 vendor/
+
+/api/app/env/env.js
